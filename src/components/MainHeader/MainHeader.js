@@ -9,9 +9,6 @@ const MainHeader = () => {
       <Container>
         <Nav>
           <Canvas />
-          <Nav.Link href="#home">Home</Nav.Link>
-          <Nav.Link href="#features">Features</Nav.Link>
-          <Nav.Link href="#pricing">Pricing</Nav.Link>
         </Nav>
         <Form.Group>
           <Form.Label>Search</Form.Label>
@@ -23,3 +20,9 @@ const MainHeader = () => {
 };
 
 export default MainHeader;
+
+{
+  /* <Nav.Link href="#home">Home</Nav.Link>
+<Nav.Link href="#features">Features</Nav.Link>
+<Nav.Link href="#pricing">Pricing</Nav.Link> */
+}

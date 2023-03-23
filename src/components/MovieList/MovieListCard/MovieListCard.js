@@ -1,15 +1,25 @@
 import React from "react";
 
-const MovieListCard = () => {
+const MovieListCard = ({ rating, img, name, id }) => {
   return (
-    <div className="card m-xl-4 m-3" style={{ width: "18rem" }} id="500">
+    <div
+      className="card m-xl-4 m-3"
+      style={{ width: "18rem", cursor: "pointer" }}
+      id="500"
+    >
       <img
-        src="https://images.pexels.com/photos/4234529/pexels-photo-4234529.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"
-        className="card-img-top"
-        alt="asdasd"
+        src={img}
+        className="card-img-top position-relative"
+        alt={`${name}-${id}`}
       />
-      <div className="card-body">
-        <h5 className="card-title text-center  fw-bolder">Title</h5>
+      <h6
+        className="position-absolute bg-primary rounded-circle d-flex justify-content-center align-items-center text-light"
+        style={{ width: "45px", height: "45px", bottom: "9%", right: "3%" }}
+      >
+        {rating}
+      </h6>
+      <div className={`card-body ${rating > 8.5 ? " bg-warning" : ""}`}>
+        <h5 className="card-title text-center  fw-bolder">{name}</h5>
       </div>
     </div>
   );

@@ -3,12 +3,12 @@ import React from "react";
 import { MainHeader, Footer } from "../../components";
 import { Outlet } from "react-router";
 
-const Root = () => {
+const Root = ({ showPagination }) => {
   return (
     <>
       <MainHeader />
       <Outlet />
-      <Footer />
+      <Footer showPagination={showPagination} />
     </>
   );
 };
