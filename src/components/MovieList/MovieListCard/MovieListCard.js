@@ -2,7 +2,11 @@ import React from "react";
 
 const MovieListCard = ({ rating, img, name, id }) => {
   return (
-    <div className="card m-xl-4 m-3" style={{ width: "18rem" }} id="500">
+    <div
+      className="card m-xl-4 m-3"
+      style={{ width: "18rem", cursor: "pointer" }}
+      id="500"
+    >
       <img
         src={img}
         className="card-img-top position-relative"
