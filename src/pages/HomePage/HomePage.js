@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { MainContent, MovieList } from "../../components";
+import { MainContent, MovieList, Loader } from "../../components";
 
 import { fetchMoviesList } from "../../services/services";
 
 const HomePage = () => {
   const [movies, setMovies] = useState(null);
+
   const getLandingPageData = async () => {
     const data = await fetchMoviesList();
     setMovies(() => [...data]);
@@ -17,15 +18,11 @@ const HomePage = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  if (!movies) return <div>Loading...</div>;
-
   return (
     <MainContent>
-      <MovieList movieList={movies} />
+      {!movies ? <Loader /> : <MovieList movieList={movies} />}
     </MainContent>
   );
 };
 
 export default HomePage;
-
-//pagination should be hidden

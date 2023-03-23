@@ -6,3 +6,4 @@ export { default as MovieList } from "./MovieList/MovieList";
 export { default as PaginationContainer } from "./Pagination/Pagination";
 export { default as ErrorWindow } from "./ErrorWindow/ErrorWindow";
 export { default as MainNav } from "./MainNav/MainNav";
+export { default as Loader } from "./Loader/Loader";
