@@ -29,3 +29,7 @@ const removeTextTags = (string) => {
     .replaceAll("</b>", "")
     .replaceAll("</p>", "");
 };
+
+export const getCurrentGridView = () => {
+  return JSON.parse(localStorage.getItem("gridView"));
+};

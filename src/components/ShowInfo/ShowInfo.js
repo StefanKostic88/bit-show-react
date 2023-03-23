@@ -1,16 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MdViewModule, MdViewList, MdRefresh } from "react-icons/md";
 
 import CastList from "./CastList/CastList";
 import Sumary from "./Sumary/Sumary";
 import CastListGrid from "./CastListGrid/CastListGrid";
 
+import { getCurrentGridView } from "../../shared/helperFunctions";
+
 const ShowInfo = ({ showInfo }) => {
-  const [gridIsVisible, setGridIsVisible] = useState(true);
+  const [gridIsVisible, setGridIsVisible] = useState(null);
 
   const onClickHandler = () => {
-    setGridIsVisible((prev) => !prev);
+    setGridIsVisible((prev) => {
+      localStorage.setItem("gridView", JSON.stringify(!prev));
+      return !prev;
+    });
   };
+
+  useEffect(() => {
+    const data = getCurrentGridView();
+    setGridIsVisible(() => data);
+  });
 
   return (
     <div className="row container-xl d-flex justify-content-center align-items-center pt-4 pt-md-2 pb-5 mt-5 mb-5 ps-0 pe-0">
