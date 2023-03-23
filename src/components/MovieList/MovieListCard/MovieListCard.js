@@ -1,11 +1,13 @@
 import React from "react";
 
-const MovieListCard = ({ rating, img, name, id }) => {
+const MovieListCard = ({ rating, img, name, id, onGetShowData }) => {
   return (
     <div
       className="card m-xl-4 m-3"
       style={{ width: "18rem", cursor: "pointer" }}
-      id="500"
+      onClick={() => {
+        onGetShowData(id);
+      }}
     >
       <img
         src={img}
