@@ -8,3 +8,4 @@ export { default as ErrorWindow } from "./ErrorWindow/ErrorWindow";
 export { default as MainNav } from "./MainNav/MainNav";
 export { default as Loader } from "./Loader/Loader";
 export { default as ShowInfo } from "./ShowInfo/ShowInfo";
+export { default as CustomSearchBar } from "./ui/CustomSearchBar/CustomSearchBar";

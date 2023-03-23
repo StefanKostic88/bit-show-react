@@ -7,9 +7,11 @@ import { GlobalDataContext } from "../../store/GlobalContext/global-data-context
 
 const HomePage = () => {
   const [movies, setMovies] = useState(null);
+  const [isTyping, setIsTyping] = useState(false);
 
-  const ctx = useContext(GlobalDataContext);
-  console.log(ctx);
+  //[prvi put ucitava]
+
+  const { searchedMovies } = useContext(GlobalDataContext);
 
   const getLandingPageData = async () => {
     const data = await fetchMoviesList();
@@ -22,6 +24,24 @@ const HomePage = () => {
 
     return () => clearTimeout(timer);
   }, []);
+
+  // useEffect(() => {
+  //   setIsTyping(() => true);
+  // }, [isTyping]);
+
+  useEffect(() => {
+    console.log();
+    if (!searchedMovies) return;
+    if (searchedMovies.length === 0) {
+      console.log(searchedMovies.length);
+      console.log();
+      console.log(isTyping, "typing");
+      // getLandingPageData();
+      return;
+    }
+
+    setMovies(() => [...searchedMovies]);
+  }, [searchedMovies]);
 
   return (
     <MainContent>

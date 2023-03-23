@@ -1,6 +1,7 @@
 import React from "react";
 
 const MovieListCard = ({ rating, img, name, id, onGetShowData }) => {
+  // console.log(rating, img, name, id, onGetShowData);
   return (
     <div
       className="card m-xl-4 m-3"

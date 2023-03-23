@@ -7,6 +7,7 @@ import { GlobalContextWraper } from "./store/GlobalContext/global-data-context";
 function App() {
   const path = useLocation();
   const navigate = useNavigate();
+  const [searchFilter, setSearchFilter] = useState(null);
   const [showPagination, setShowPagination] = useState(false);
 
   useEffect(() => {
@@ -16,13 +17,21 @@ function App() {
       setShowPagination(() => false);
     }
   });
-
+  console.log(searchFilter);
   return (
     <GlobalContextWraper
       contextValue={{
         oppenShowDetails: (showId) => {
           navigate(`/all-shows/${showId}`);
         },
+        getFilteredShows: (arr) => {
+          // if (arr.length === 0) {
+          //   setSearchFilter(() => null);
+          //   return;
+          // }
+          setSearchFilter(() => [...arr]);
+        },
+        searchedMovies: searchFilter,
       }}
     >
       <Routes>

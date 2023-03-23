@@ -1,5 +1,4 @@
-import { generateMovie } from "../models/assets/helperFunctions";
-import { generateShowInfo } from "../shared/helperFunctions";
+import { generateShowInfo, generateMovie } from "../shared/helperFunctions";
 
 export const fetchMoviesList = async (curPage = 0) => {
   try {
