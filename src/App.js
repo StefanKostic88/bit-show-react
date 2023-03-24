@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Root, HomePage, AllShows, ShowDeatailsPage } from "./pages";
 import { Routes, Route, useLocation, useNavigate } from "react-router";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { GlobalContextWraper } from "./store/GlobalContext/global-data-context";
 import { generateMovie } from "./shared/helperFunctions";
 
@@ -33,23 +33,20 @@ function App() {
         oppenShowDetails: (showId) => {
           navigate(`/all-shows/${showId}`);
         },
-        getFilteredShows: async (searchInput, isTyped) => {
-          // if (!searchInput) return;
+        getFilteredShows: async (searchInput) => {
           const filteredArr = await getSearchMovieListData(searchInput);
           setSearchFilter(() => ({
             filteredMovies: [...filteredArr],
             searchInput,
           }));
-
-          // if (arr.length === 0) {
-          //   setSearchFilter(() => null);
-          //   return;
-          // }
-          // setSearchFilter(() => [...arr]);
         },
         resetFilteredState: () => {
-          setSearchFilter(null);
+          setSearchFilter(() => null);
         },
+        resetSearchInput: () => {
+          console.log("reset");
+        },
+
         searchedMovies: searchFilter,
       }}
     >

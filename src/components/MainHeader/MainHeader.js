@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router";
-import { Nav, Navbar, Container, Form } from "react-bootstrap";
+import { Nav, Navbar, Container } from "react-bootstrap";
 import { CustomSearchBar, Canvas } from "../../components";
 
 import { GlobalDataContext } from "../../store/GlobalContext/global-data-context";
@@ -14,20 +14,22 @@ const MainHeader = () => {
   const { getFilteredShows } = useContext(GlobalDataContext);
 
   const showDetailIsOpened = location.pathname === `/all-shows/${id}`;
-  console.log();
 
-  const searchHandler = (e) => {
-    const startedTyping = true;
-    getFilteredShows(e.target.value, startedTyping);
-    setSearchTearm(() => e.target.value);
+  const resetSearch = () => {
+    setSearchTearm(() => "");
   };
 
-  // useEffect(() => {
-  //   if (location.pathname === `/`) {
-  //     setSearchTearm(() => "");
-  //   }
-  // }, [location.pathname]);
-  // console.log(searchTearm);
+  useEffect(() => {
+    if (location.pathname === `/`) {
+      console.log("path name");
+      resetSearch();
+    }
+  }, [location.pathname]);
+
+  const searchHandler = (e) => {
+    getFilteredShows(e.target.value);
+    setSearchTearm(() => e.target.value);
+  };
 
   return (
     <Navbar bg="dark" variant="dark">
@@ -48,10 +50,3 @@ const MainHeader = () => {
 };
 
 export default MainHeader;
-
-{
-  /* <Form.Group>
-<Form.Label>Search</Form.Label>
-<Form.Control placeholder="search" />
-</Form.Group> */
-}

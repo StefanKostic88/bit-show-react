@@ -11,7 +11,8 @@ const HomePage = () => {
   const [movies, setMovies] = useState(null);
   const [hasError, setHasError] = useState(false);
 
-  const { searchedMovies, resetFilteredState } = useContext(GlobalDataContext);
+  const { searchedMovies, resetFilteredState, resetSearchInput } =
+    useContext(GlobalDataContext);
 
   const getLandingPageData = async () => {
     const data = await fetchMoviesList();
@@ -28,7 +29,6 @@ const HomePage = () => {
   }, []);
 
   useEffect(() => {
-    console.log(searchedMovies);
     if (!searchedMovies) return;
     const { filteredMovies, searchInput } = searchedMovies;
     setMovies(() => [...filteredMovies]);
@@ -38,6 +38,8 @@ const HomePage = () => {
     }
     if (filteredMovies.length === 0 && searchInput) {
       resetFilteredState();
+      resetSearchInput();
+
       setHasError(() => true);
       return;
     }
