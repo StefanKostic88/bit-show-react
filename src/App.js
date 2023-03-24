@@ -3,7 +3,17 @@ import { Root, HomePage, AllShows, ShowDeatailsPage } from "./pages";
 import { Routes, Route, useLocation, useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import { GlobalContextWraper } from "./store/GlobalContext/global-data-context";
+import { generateMovie } from "./shared/helperFunctions";
 
+const getSearchMovieListData = async (searchTerm) => {
+  const res = await fetch(
+    `https://api.tvmaze.com/search/shows?q=${searchTerm}`
+  );
+  const data = await res.json();
+  return data.map(({ show }) => generateMovie(show));
+};
+
+// getSearchMovieListData
 function App() {
   const path = useLocation();
   const navigate = useNavigate();
@@ -17,19 +27,28 @@ function App() {
       setShowPagination(() => false);
     }
   });
-  console.log(searchFilter);
   return (
     <GlobalContextWraper
       contextValue={{
         oppenShowDetails: (showId) => {
           navigate(`/all-shows/${showId}`);
         },
-        getFilteredShows: (arr) => {
+        getFilteredShows: async (searchInput, isTyped) => {
+          // if (!searchInput) return;
+          const filteredArr = await getSearchMovieListData(searchInput);
+          setSearchFilter(() => ({
+            filteredMovies: [...filteredArr],
+            searchInput,
+          }));
+
           // if (arr.length === 0) {
           //   setSearchFilter(() => null);
           //   return;
           // }
-          setSearchFilter(() => [...arr]);
+          // setSearchFilter(() => [...arr]);
+        },
+        resetFilteredState: () => {
+          setSearchFilter(null);
         },
         searchedMovies: searchFilter,
       }}

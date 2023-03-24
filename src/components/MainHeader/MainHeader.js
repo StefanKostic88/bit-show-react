@@ -1,30 +1,33 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router";
 import { Nav, Navbar, Container, Form } from "react-bootstrap";
 import { CustomSearchBar, Canvas } from "../../components";
-import { generateMovie } from "../../shared/helperFunctions";
+
 import { GlobalDataContext } from "../../store/GlobalContext/global-data-context";
 
 const MainHeader = () => {
   const location = useLocation();
   const { id } = useParams();
+
+  const [searchTearm, setSearchTearm] = useState("");
+
   const { getFilteredShows } = useContext(GlobalDataContext);
 
   const showDetailIsOpened = location.pathname === `/all-shows/${id}`;
+  console.log();
 
-  const getSearchMovieListData = async (searchTerm) => {
-    const res = await fetch(
-      `https://api.tvmaze.com/search/shows?q=${searchTerm}`
-    );
-    const data = await res.json();
-    return data.map(({ show }) => generateMovie(show));
+  const searchHandler = (e) => {
+    const startedTyping = true;
+    getFilteredShows(e.target.value, startedTyping);
+    setSearchTearm(() => e.target.value);
   };
 
-  const searchHandler = async (e) => {
-    const searchFilter = await getSearchMovieListData(e.target.value);
-    getFilteredShows(searchFilter);
-    // console.log(searchFilter);
-  };
+  // useEffect(() => {
+  //   if (location.pathname === `/`) {
+  //     setSearchTearm(() => "");
+  //   }
+  // }, [location.pathname]);
+  // console.log(searchTearm);
 
   return (
     <Navbar bg="dark" variant="dark">
@@ -33,7 +36,11 @@ const MainHeader = () => {
           <Canvas />
         </Nav>
         {!showDetailIsOpened && (
-          <CustomSearchBar label="Search Show" onChange={searchHandler} />
+          <CustomSearchBar
+            label="Search Show"
+            onChange={searchHandler}
+            value={searchTearm}
+          />
         )}
       </Container>
     </Navbar>

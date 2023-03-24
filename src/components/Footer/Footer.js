@@ -2,7 +2,6 @@ import React from "react";
 import { PaginationContainer } from "../../components";
 
 const Footer = ({ showPagination }) => {
-  console.log(showPagination);
   return (
     <footer
       id="main-footer"
