@@ -9,14 +9,16 @@ const errorMsg = "We couldn't find any movie matching your search ";
 
 const HomePage = () => {
   const [movies, setMovies] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
-  const { searchedMovies, resetFilteredState, resetSearchInput } =
-    useContext(GlobalDataContext);
+  const { searchedMovies, resetFilteredState } = useContext(GlobalDataContext);
 
   const getLandingPageData = async () => {
+    setIsLoading(() => true);
     const data = await fetchMoviesList();
     setMovies(() => [...data]);
+    setIsLoading(() => false);
   };
   useEffect(() => {
     setHasError(() => false);
@@ -38,7 +40,6 @@ const HomePage = () => {
     }
     if (filteredMovies.length === 0 && searchInput) {
       resetFilteredState();
-      resetSearchInput();
 
       setHasError(() => true);
       return;
@@ -49,7 +50,7 @@ const HomePage = () => {
 
   return (
     <MainContent>
-      {!movies ? (
+      {isLoading ? (
         <Loader />
       ) : hasError ? (
         <ErrorWindow errMsg={errorMsg} />

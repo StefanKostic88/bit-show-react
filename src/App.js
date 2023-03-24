@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Root, HomePage, AllShows, ShowDeatailsPage } from "./pages";
 import { Routes, Route, useLocation, useNavigate } from "react-router";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { GlobalContextWraper } from "./store/GlobalContext/global-data-context";
 import { generateMovie } from "./shared/helperFunctions";
 
@@ -13,7 +13,6 @@ const getSearchMovieListData = async (searchTerm) => {
   return data.map(({ show }) => generateMovie(show));
 };
 
-// getSearchMovieListData
 function App() {
   const path = useLocation();
   const navigate = useNavigate();
@@ -42,9 +41,6 @@ function App() {
         },
         resetFilteredState: () => {
           setSearchFilter(() => null);
-        },
-        resetSearchInput: () => {
-          console.log("reset");
         },
 
         searchedMovies: searchFilter,
